@@ -14,11 +14,8 @@ import {
   Image
 } from 'react-native';
 import Button from 'apsl-react-native-button';
-import { createStore, combineReducers } from 'redux';
-import { Provider } from 'react-redux/native';
+import { Actions } from 'react-native-router-flux';
 
-var {Actions} = require('react-native-redux-router');
-var Amanda = require('./amanda');
 
 export default class Welcome extends Component {
 
@@ -32,11 +29,7 @@ export default class Welcome extends Component {
           Welcome!
         </Text>
         <Button style={styles.welcomeButton} textStyle={styles.welcomeText}
-        onPress={() => {
-            return <Amanda />
-          }}>
-          GET STARTED
-        </Button>
+        onPress={() => {  Actions.amanda();}}>GET STARTED</Button>
       </View>
     );
   }
