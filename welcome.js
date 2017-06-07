@@ -22,14 +22,11 @@ export default class Welcome extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <Image source={require('./Sprites/Asset 2hdpi.png')} style={styles.logo}  >
-
-      </Image>
-        <Text style={styles.welcome}>
-          Welcome!
-        </Text>
+        <Image source={require('./Sprites/Asset 2hdpi.png')} style={styles.logo}  ></Image>
+        <Text style={styles.welcome}>  Welcome!</Text>
         <Button style={styles.welcomeButton} textStyle={styles.welcomeText}
-        onPress={() => {  Actions.amanda();}}>GET STARTED</Button>
+            onPress={() => {  Actions.amanda();}}>GET STARTED
+        </Button>
       </View>
     );
   }
@@ -37,9 +34,10 @@ export default class Welcome extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex:1,
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center',
     backgroundColor: '#2D3941'
   },
   welcome: {
@@ -58,8 +56,7 @@ const styles = StyleSheet.create({
     width: 250,
     position: 'absolute',
     bottom: 40,
-    right: 35,
-    left:35,
+    flex:1,
     borderColor:'#9E7AC2',
     borderRadius: 30,
 

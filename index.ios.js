@@ -12,15 +12,11 @@ import {
 import { Router, Scene } from 'react-native-router-flux';
 import Welcome from './welcome'
 import Amanda from './amanda'
+import Scenes from './Scenes'
 export default class StoryFile extends Component {
   render() {
     return (
-      <Router>
-        <Scene key="root">
-          <Scene key="welcome" component={Welcome} title="Welcome" initial={true}  hideNavBar={true}/>
-          <Scene key="amanda" component={Amanda} title="Amanda" />
-        </Scene>
-      </Router>
+      <Scenes />
     );
   }
 }
