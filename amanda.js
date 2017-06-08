@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Video from 'react-native-video';
-
+var WebRTC = require('react-native-webrtc');
 export default class Amanda extends Component {
 
   constructor(props) {
@@ -97,6 +97,38 @@ export default class Amanda extends Component {
       },
     talkText:'HOLD TO TALK'})
   }
+
+
+  function getLocalStream(isFront, callback) {
+
+  let videoSourceId;
+
+  // on android, you don't have to specify sourceId manually, just use facingMode
+  // uncomment it if you want to specify
+  if (Platform.OS === 'ios') {
+    MediaStreamTrack.getSources(sourceInfos => {
+      console.log("sourceInfos: ", sourceInfos);
+
+      for (const i = 0; i < sourceInfos.length; i++) {
+        const sourceInfo = sourceInfos[i];
+        if(sourceInfo.kind == "video" && sourceInfo.facing == (isFront ? "front" : "back")) {
+          videoSourceId = sourceInfo.id;
+        }
+      }
+    });
+  }
+  getUserMedia({
+    audio: true,
+    video: false,
+      facingMode: (isFront ? "user" : "environment"),
+      optional: (videoSourceId ? [{sourceId: videoSourceId}] : []),
+    }
+  }, function (stream) {
+    console.log('getUserMedia success', stream);
+    callback(stream);
+  }, logError);
+}
+
 
 
   render() {
