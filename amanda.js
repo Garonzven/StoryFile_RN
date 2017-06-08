@@ -98,6 +98,33 @@ export default class Amanda extends Component {
     talkText:'HOLD TO TALK'})
   }
 
+  //var ws;
+
+  componentDidMount() {
+    console.log( 'connecting..' );
+    var ws = new WebSocket('wss://echo.websocket.org/');
+
+    ws.onopen = () => {
+      // connection opened
+      ws.send('Open!'); // send a message
+    };
+    ws.onmessage = (e) => {
+      // a message was received
+      console.log(e.data);
+    };
+    ws.onerror = (e) => {
+      // an error occurred
+      console.log(e.message);
+    };
+    ws.onclose = (e) => {
+      // connection closed
+      console.log(e.code, e.reason);
+    };
+  }
+  /*componentWillUnmount() {
+    ws.close()
+    console.log( 'closed ws connection' );
+  }*/
 
   render() {
     var color_talk = '';
