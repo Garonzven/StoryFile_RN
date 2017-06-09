@@ -18,6 +18,8 @@ import Button from 'apsl-react-native-button';
 import Video from 'react-native-video';
 import RecordingHandler from './recordingHandler';
 
+const r = new RecordingHandler();
+
 export default class Amanda extends Component {
 
   constructor(props) {
@@ -78,7 +80,6 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'RELEASE TO LISTEN'})
-    const r = new RecordingHandler();
     r.record();
     return true;
   }
@@ -100,6 +101,7 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'HOLD TO TALK'})
+    r.stopRecording();
   }
 
   //var ws;

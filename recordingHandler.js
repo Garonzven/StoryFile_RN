@@ -5,12 +5,20 @@ import {
   RTCIceCandidate,
   RTCSessionDescription,
   RTCView,
+  MediaRecorder,
   MediaStream,
   MediaStreamTrack,
   getUserMedia,
 } from 'react-native-webrtc';
 
+var mediaRecorder;
+
 export default class RecordingHandler {
+
+  stopRecording () {
+    mediaRecorder.stop();
+    console.log(mediaRecorder.requestData());
+  }
   record () {
     console.log( 'Recording! maybe..' );
 
@@ -24,6 +32,12 @@ export default class RecordingHandler {
         video: false
       }, function (stream) {
         console.log('dddd', stream);
+        const options = {
+          audioBitsPerSecond : 44100,
+          mimeType : 'audio/I16'
+        }
+        mediaRecorder = new MediaRecorder(stream, options);
+        mediaRecorder.start();
         //callback(stream);
       }, function (err) {
         console.log('dddd', err);
