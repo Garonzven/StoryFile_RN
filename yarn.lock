@@ -2974,6 +2974,13 @@ react-native-video@^1.0.0:
   dependencies:
     keymirror "0.1.1"
 
+react-native-webrtc@^1.57.1:
+  version "1.57.1"
+  resolved "https://registry.yarnpkg.com/react-native-webrtc/-/react-native-webrtc-1.57.1.tgz#3bf73fbcb716d5f259a7b06ea557a9122323cf1d"
+  dependencies:
+    base64-js "^1.1.2"
+    event-target-shim "^1.0.5"
+
 react-native@0.44.2:
   version "0.44.2"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.44.2.tgz#c8dfb747b88e6276a991980c57c50b860a98cf0e"
