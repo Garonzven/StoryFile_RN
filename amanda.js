@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Video from 'react-native-video';
+import RecordingHandler from './recordingHandler';
 
 export default class Amanda extends Component {
 
@@ -59,8 +60,9 @@ export default class Amanda extends Component {
       this.setState({currentTime: data.currentTime});
   }
 
+  //On Press
   onStartShouldSetResponder(){
-    console.warn("start should set responder");
+    console.log("start should set responder");
     this.setState({square:{
       width: '100%',
       height: 60,
@@ -76,11 +78,13 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'RELEASE TO LISTEN'})
+    const r = new RecordingHandler();
+    r.record();
     return true;
   }
-
+  //On Release
   onResponderRelease(){
-    console.warn("responder release");
+    console.log("responder release");
     this.setState({square:{
       width: '100%',
       height: 60,
