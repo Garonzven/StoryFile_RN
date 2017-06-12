@@ -16,7 +16,8 @@ import {
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Video from 'react-native-video';
-var WebRTC = require('react-native-webrtc');
+import RecordingHandler from './recordingHandler';
+import {AudioRecorder, AudioUtils} from 'react-native-audio-louder';
 export default class Amanda extends Component {
 
   constructor(props) {
@@ -59,8 +60,9 @@ export default class Amanda extends Component {
       this.setState({currentTime: data.currentTime});
   }
 
+  //On Press
   onStartShouldSetResponder(){
-    console.warn("start should set responder");
+    console.log("start should set responder");
     this.setState({square:{
       width: '100%',
       height: 60,
@@ -76,11 +78,14 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'RELEASE TO LISTEN'})
+    const r = new RecordingHandler();
+    r.record();
+    this._record();
     return true;
   }
-
+  //On Release
   onResponderRelease(){
-    console.warn("responder release");
+    console.log("responder release");
     this.setState({square:{
       width: '100%',
       height: 60,
@@ -96,7 +101,18 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'HOLD TO TALK'})
+      this._stop();
   }
+
+  prepareRecordingPath(audioPath){
+     AudioRecorder.prepareRecordingAtPath(audioPath, {
+       SampleRate: 22050,
+       Channels: 1,
+       AudioQuality: "Low",
+       AudioEncoding: "aac"
+       //AudioEncodingBitRate: 32000
+     });
+   }
 
   //var ws;
 
@@ -120,42 +136,41 @@ export default class Amanda extends Component {
       // connection closed
       console.log(e.code, e.reason);
     };
+
+    let audioPath = AudioUtils.DocumentDirectoryPath + '/test.aac';
+    this.prepareRecordingPath(audioPath);
+    AudioRecorder.onProgress = (data) => {
+      console.warn('currentTime: '+Math.floor(data.currentTime));
+      //this.setState({currentTime: Math.floor(data.currentTime)});
+    };
+    AudioRecorder.onFinished = (data) => {
+    //  this.setState({finished: data.finished});
+      console.log('Finished recording: ${data.finished}');
+    };
   }
   /*componentWillUnmount() {
     ws.close()
     console.log( 'closed ws connection' );
   }*/
 
-  function getLocalStream(isFront, callback) {
-
-  let videoSourceId;
-
-  // on android, you don't have to specify sourceId manually, just use facingMode
-  // uncomment it if you want to specify
-  if (Platform.OS === 'ios') {
-    MediaStreamTrack.getSources(sourceInfos => {
-      console.log("sourceInfos: ", sourceInfos);
-
-      for (const i = 0; i < sourceInfos.length; i++) {
-        const sourceInfo = sourceInfos[i];
-        if(sourceInfo.kind == "video" && sourceInfo.facing == (isFront ? "front" : "back")) {
-          videoSourceId = sourceInfo.id;
-        }
+  _stop() {
+      if (this.state.recording) {
+        AudioRecorder.stopRecording();
+        //this.setState({stoppedRecording: true, recording: false});
+      } else if (this.state.playing) {
+        AudioRecorder.stopPlaying();
+      //  this.setState({playing: false, stoppedPlaying: true});
       }
-    });
-  }
-  getUserMedia({
-    audio: true,
-    video: false,
-      facingMode: (isFront ? "user" : "environment"),
-      optional: (videoSourceId ? [{sourceId: videoSourceId}] : []),
     }
-  }, function (stream) {
-    console.log('getUserMedia success', stream);
-    callback(stream);
-  }, logError);
-}
 
+    _record() {
+      if(this.state.stoppedRecording){
+        let audioPath = AudioUtils.DocumentDirectoryPath + '/test.aac';
+      //  this.prepareRecordingPath(audioPath);
+      }
+      AudioRecorder.startRecording();
+    //  this.setState({recording: true, playing: false});
+    }
 
 
   render() {
