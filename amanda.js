@@ -81,6 +81,7 @@ export default class Amanda extends Component {
       },
     talkText:'RELEASE TO LISTEN'})
     r.record();
+    this._record();
     return true;
   }
   //On Release
@@ -101,8 +102,22 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'HOLD TO TALK'})
+
+      this._stop();
+
     r.stopRecording();
+
   }
+
+  prepareRecordingPath(audioPath){
+     AudioRecorder.prepareRecordingAtPath(audioPath, {
+       SampleRate: 22050,
+       Channels: 1,
+       AudioQuality: "Low",
+       AudioEncoding: "aac"
+       //AudioEncodingBitRate: 32000
+     });
+   }
 
   //var ws;
 
@@ -126,11 +141,42 @@ export default class Amanda extends Component {
       // connection closed
       console.log(e.code, e.reason);
     };
+
+    let audioPath = AudioUtils.DocumentDirectoryPath + '/test.aac';
+    this.prepareRecordingPath(audioPath);
+    AudioRecorder.onProgress = (data) => {
+      console.warn('currentTime: '+Math.floor(data.currentTime));
+      //this.setState({currentTime: Math.floor(data.currentTime)});
+    };
+    AudioRecorder.onFinished = (data) => {
+    //  this.setState({finished: data.finished});
+      console.log('Finished recording: ${data.finished}');
+    };
   }
   /*componentWillUnmount() {
     ws.close()
     console.log( 'closed ws connection' );
   }*/
+
+  _stop() {
+      if (this.state.recording) {
+        AudioRecorder.stopRecording();
+        //this.setState({stoppedRecording: true, recording: false});
+      } else if (this.state.playing) {
+        AudioRecorder.stopPlaying();
+      //  this.setState({playing: false, stoppedPlaying: true});
+      }
+    }
+
+    _record() {
+      if(this.state.stoppedRecording){
+        let audioPath = AudioUtils.DocumentDirectoryPath + '/test.aac';
+      //  this.prepareRecordingPath(audioPath);
+      }
+      AudioRecorder.startRecording();
+    //  this.setState({recording: true, playing: false});
+    }
+
 
   render() {
     var color_talk = '';
