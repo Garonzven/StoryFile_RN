@@ -17,7 +17,9 @@ import {
 import Button from 'apsl-react-native-button';
 import Video from 'react-native-video';
 import RecordingHandler from './recordingHandler';
-import {AudioRecorder, AudioUtils} from 'react-native-audio-louder';
+
+const r = new RecordingHandler();
+
 export default class Amanda extends Component {
 
   constructor(props) {
@@ -78,7 +80,6 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'RELEASE TO LISTEN'})
-    const r = new RecordingHandler();
     r.record();
     this._record();
     return true;
@@ -101,7 +102,11 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'HOLD TO TALK'})
+
       this._stop();
+
+    r.stopRecording();
+
   }
 
   prepareRecordingPath(audioPath){
