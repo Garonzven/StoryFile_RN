@@ -11,11 +11,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  Dimensions
+  Image
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Video from 'react-native-video';
+import Sound from 'react-native-sound';
+import {AudioRecorder, AudioUtils} from 'react-native-audio';
 //import RecordingHandler from './recordingHandler';
 
 //const r = new RecordingHandler();
@@ -51,8 +52,140 @@ export default class Amanda extends Component {
          backgroundColor: '#2AB999',
          bottom:40,
          position:'absolute'
-       }
+       },
+       currentTime: 0.0,
+       recording: false,
+       stoppedRecording: false,
+       finished: false,
+       audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
+       hasPermission: undefined,
    };
+
+   prepareRecordingPath(audioPath){
+     AudioRecorder.prepareRecordingAtPath(audioPath, {
+       SampleRate: 22050,
+       Channels: 1,
+       AudioQuality: "Low",
+       AudioEncoding: "aac",
+       AudioEncodingBitRate: 32000
+     });
+   }
+
+   componentDidMount() {
+     this._checkPermission().then((hasPermission) => {
+       this.setState({ hasPermission });
+
+       if (!hasPermission) return;
+
+       this.prepareRecordingPath(this.state.audioPath);
+
+       AudioRecorder.onProgress = (data) => {
+         console.log('progreso')
+         console.log(data)
+         this.setState({currentTime: Math.floor(data.currentTime)});
+       };
+
+       AudioRecorder.onFinished = (data) => {
+         // Android callback comes in the form of a promise instead.
+         if (Platform.OS === 'ios') {
+           this._finishRecording(data.status === "OK", data.audioFileURL);
+         }
+       };
+     });
+   }
+
+   _checkPermission() {
+     if (Platform.OS !== 'android') {
+       return Promise.resolve(true);
+     }
+
+     const rationale = {
+       'title': 'Microphone Permission',
+       'message': 'AudioExample needs access to your microphone so you can record audio.'
+     };
+
+     return PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, rationale)
+       .then((result) => {
+         console.log('Permission result:', result);
+         return (result === true || result === PermissionsAndroid.RESULTS.GRANTED);
+       });
+   }
+
+   async _stop() {
+     if (!this.state.recording) {
+       console.warn('Can\'t stop, not recording!');
+       return;
+     }
+
+     this.setState({stoppedRecording: true, recording: false});
+
+     try {
+       const filePath = await AudioRecorder.stopRecording();
+
+       if (Platform.OS === 'android') {
+         this._finishRecording(true, filePath);
+       }
+       return filePath;
+     } catch (error) {
+       console.error(error);
+     }
+   }
+
+   async _play() {
+     if (this.state.recording) {
+       console.warn('no hay vida menol')
+       //await this._stop();
+     }
+
+     // These timeouts are a hacky workaround for some issues with react-native-sound.
+     // See https://github.com/zmxv/react-native-sound/issues/89.
+     setTimeout(() => {
+       var sound = new Sound(this.state.audioPath, '', (error) => {
+         if (error) {
+           console.warn('failed to load the sound', error);
+         }
+       });
+
+       setTimeout(() => {
+         sound.play((success) => {
+           if (success) {
+             console.log('successfully finished playing');
+           } else {
+             console.warn('playback failed due to audio decoding errors');
+           }
+         });
+       }, 100);
+     }, 100);
+   }
+
+   async _record() {
+     if (this.state.recording) {
+       console.warn('Already recording!');
+       return;
+     }
+
+     if (!this.state.hasPermission) {
+       console.warn('Can\'t record, no permission granted!');
+       return;
+     }
+
+     if(this.state.stoppedRecording){
+       this.prepareRecordingPath(this.state.audioPath);
+     }
+
+     this.setState({recording: true});
+
+     try {
+       const filePath = await AudioRecorder.startRecording();
+     } catch (error) {
+       console.error(error);
+     }
+   }
+
+   _finishRecording(didSucceed, filePath) {
+     this.setState({ finished: didSucceed });
+     console.warn(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath}`);
+   }
 
   onLoad(data) {
       this.setState({duration: data.duration});
@@ -81,6 +214,7 @@ export default class Amanda extends Component {
       },
     talkText:'RELEASE TO LISTEN'})
   //  r.record();
+    this._record();
     return true;
   }
   //On Release
@@ -101,6 +235,8 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'HOLD TO TALK'})
+    this._stop();
+    this._play();
   //  r.stopRecording();
   }
 
@@ -125,8 +261,6 @@ export default class Amanda extends Component {
     playInBackground={true}
     repeat={true}
       />
-
-
 
         <View style={this.state.circle} />
 
