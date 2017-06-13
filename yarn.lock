@@ -799,6 +799,10 @@ balanced-match@^0.4.1:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
 
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
+
 base64-js@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-0.0.8.tgz#1101e9544f4a76b1bc3b26d452ca96d7a35e7978"
@@ -840,6 +844,20 @@ beeper@^1.0.0:
 big-integer@^1.6.7:
   version "1.6.23"
   resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.23.tgz#e85d508220c74e3f43a4ce72eed51f3da4db94d1"
+
+binaryjs@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/binaryjs/-/binaryjs-0.2.1.tgz#28edb40b1830278f5598eb00c3679253e8e99dee"
+  dependencies:
+    binarypack ">=0.0.4"
+    streamers ">=0.1.0"
+    streamws ">=0.1.1"
+
+binarypack@>=0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/binarypack/-/binarypack-0.0.4.tgz#c4ab4acac7c659e228ed0b0b7335626c98d6c890"
+  dependencies:
+    buffercursor ">=0.0.3"
 
 body-parser@~1.13.3:
   version "1.13.3"
@@ -912,6 +930,12 @@ bser@^2.0.0:
   resolved "https://registry.yarnpkg.com/bser/-/bser-2.0.0.tgz#9ac78d3ed5d915804fd87acb158bc797147a1719"
   dependencies:
     node-int64 "^0.4.0"
+
+buffercursor@>=0.0.3:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/buffercursor/-/buffercursor-0.0.12.tgz#78a9a7f4343ae7d820a8999acc80de591e25a779"
+  dependencies:
+    verror "^1.4.0"
 
 builtin-modules@^1.0.0:
   version "1.1.1"
@@ -1030,6 +1054,10 @@ commander@^2.9.0:
   dependencies:
     graceful-readlink ">= 1.0.0"
 
+commander@~0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-0.6.1.tgz#fa68a14f6a945d54dbbe50d8cdb3320e9e3b1a06"
+
 compressible@~2.0.5:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/compressible/-/compressible-2.0.10.tgz#feda1c7f7617912732b29bf8cf26252a20b9eecd"
@@ -1139,7 +1167,7 @@ core-js@^2.2.2, core-js@^2.4.0:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.4.1.tgz#4de911e667b0eae9124e34254b53aea6fc618d3e"
 
-core-util-is@~1.0.0:
+core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
@@ -1402,6 +1430,14 @@ extglob@^0.3.1:
 extsprintf@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
+
+extsprintf@^1.2.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.3.0.tgz#96918440e3041a7a414f8c52e3c574eb3c3e1e05"
+
+eyes@>=0.1.6:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
 
 fancy-log@^1.1.0:
   version "1.3.0"
@@ -2726,7 +2762,7 @@ optionator@^0.8.1:
     type-check "~0.3.2"
     wordwrap "~1.0.0"
 
-options@>=0.0.5:
+options@>=0.0.5, options@latest:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/options/-/options-0.0.6.tgz#ec22d312806bb53e731773e7cdaefcf1c643128f"
 
@@ -2954,6 +2990,13 @@ react-native-experimental-navigation@0.27.x:
     babel-preset-react-native "^1.9.0"
     clamp "^1.0.1"
     fbjs "^0.8.1"
+
+react-native-fs@2.0.1-rc.2:
+  version "2.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.0.1-rc.2.tgz#e7e00b1d5c48c52c4ca8cd76b4ea62440ae54082"
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^2.1.1"
 
 react-native-router-flux@3.39.2:
   version "3.39.2"
@@ -3520,6 +3563,21 @@ stream-counter@~0.2.0:
   dependencies:
     readable-stream "~1.1.8"
 
+streamers@>=0.1.0:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/streamers/-/streamers-0.1.1.tgz#38793eae1447021682ed361d1e3106ac596b0c55"
+  dependencies:
+    underscore "1.2.3"
+    vows "0.6.1"
+
+streamws@>=0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/streamws/-/streamws-0.1.1.tgz#95c33b5ec795b5285361e9f73993e00438d33b1a"
+  dependencies:
+    commander "~0.6.1"
+    options latest
+    tinycolor "0.x"
+
 string-length@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/string-length/-/string-length-1.0.1.tgz#56970fb1c38558e9e70b728bf3de269ac45adfac"
@@ -3615,6 +3673,10 @@ through@^2.3.6:
 time-stamp@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-1.1.0.tgz#764a5a11af50561921b133f3b44e618687e0f5c3"
+
+tinycolor@0.x:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/tinycolor/-/tinycolor-0.0.1.tgz#320b5a52d83abb5978d81a3e887d4aefb15a6164"
 
 tmpl@1.0.x:
   version "1.0.4"
@@ -3712,9 +3774,17 @@ ultron@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.0.tgz#b07a2e6a541a815fc6a34ccd4533baec307ca864"
 
+underscore@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.2.3.tgz#11b874da70f4683d7d48bba2b44be1e600d2f6cf"
+
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
+
+utf8@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/utf8/-/utf8-2.1.2.tgz#1fa0d9270e9be850d9b05027f63519bf46457d96"
 
 util-deprecate@1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
@@ -3749,6 +3819,14 @@ verror@1.3.6:
   dependencies:
     extsprintf "1.0.2"
 
+verror@^1.4.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/verror/-/verror-1.10.0.tgz#3a105ca17053af55d6e270c1f8288682e18da400"
+  dependencies:
+    assert-plus "^1.0.0"
+    core-util-is "1.0.2"
+    extsprintf "^1.2.0"
+
 vhost@~3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/vhost/-/vhost-3.0.2.tgz#2fb1decd4c466aa88b0f9341af33dc1aff2478d5"
@@ -3760,6 +3838,12 @@ vinyl@^0.5.0:
     clone "^1.0.0"
     clone-stats "^0.0.1"
     replace-ext "0.0.1"
+
+vows@0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/vows/-/vows-0.6.1.tgz#0d3ccec76794b7ac8600b5c700d689864a640a2b"
+  dependencies:
+    eyes ">=0.1.6"
 
 walker@~1.0.5:
   version "1.0.7"

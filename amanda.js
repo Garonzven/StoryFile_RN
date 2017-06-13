@@ -2,7 +2,7 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  * @flow
- * @author Ing. Jeanmarie Gonzalez
+ * @author Engs. Jeanmarie Gonzalez and Daniel Soto
  */
 
 import React, { Component } from 'react';
@@ -17,6 +17,8 @@ import {
 import Button from 'apsl-react-native-button';
 import Video from 'react-native-video';
 import RecordingHandler from './recordingHandler';
+import FS from 'react-native-fs';
+//import Binary from 'binaryjs';
 
 const r = new RecordingHandler();
 
@@ -80,7 +82,6 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'RELEASE TO LISTEN'})
-    r.record();
     return true;
   }
   //On Release
@@ -101,31 +102,74 @@ export default class Amanda extends Component {
         position:'absolute'
       },
     talkText:'HOLD TO TALK'})
-    r.stopRecording();
   }
 
   //var ws;
 
   componentDidMount() {
     console.log( 'connecting..' );
-    var ws = new WebSocket('wss://echo.websocket.org/');
+    // var ws = new WebSocket('wss://echo.websocket.org/');
+    //
+    // ws.onopen = () => {
+    //   // connection opened
+    //   ws.send('Open!'); // send a message
+    // };
+    // ws.onmessage = (e) => {
+    //   // a message was received
+    //   console.log(e.data);
+    // };
+    // ws.onerror = (e) => {
+    //   // an error occurred
+    //   console.log(e.message);
+    // };
+    // ws.onclose = (e) => {
+    //   // connection closed
+    //   console.log(e.code, e.reason);
+    // };
+
+    const ws = new WebSocket('wss://echo.websocket.org/');
 
     ws.onopen = () => {
       // connection opened
-      ws.send('Open!'); // send a message
+      ws.send('something'); // send a message
     };
+
     ws.onmessage = (e) => {
       // a message was received
       console.log(e.data);
     };
+
     ws.onerror = (e) => {
       // an error occurred
       console.log(e.message);
     };
+
     ws.onclose = (e) => {
       // connection closed
       console.log(e.code, e.reason);
     };
+
+    // const socket = new Binary.BinaryClient('wss://storyfilestage.com:7070')
+    //
+    // socket.on('open', () => {
+    //   console.log('connected')
+    //
+    //   const stream = socket.createStream();
+    //
+    //   const file = FS.createReadStream('./Audios/hello2.wav')
+    //   file.on('data', (chunk) => {
+    //     console.log('sent data binary to socket : ')
+    //     console.log(chunk)
+    //     stream.write(chunk)
+    //   })
+    //
+    //   stream.on('data', (message)  => {
+    //     console.log('response: ')
+    //     console.log(message)
+    //     stream.end()
+    //     socket.close()
+    //   })
+    // })
   }
   /*componentWillUnmount() {
     ws.close()

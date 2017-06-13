@@ -12,7 +12,8 @@
     "react-native": "0.44.2",
     "react-native-router-flux": "3.39.2",
     "react-native-video": "^1.0.0",
-    "react-native-webrtc": "^1.57.1"
+    "react-native-webrtc": "^1.57.1",
+    "react-native-fs": "2.0.1-rc.2"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
