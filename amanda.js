@@ -11,7 +11,9 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  Platform,
+  PermissionsAndroid,
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Video from 'react-native-video';
@@ -149,7 +151,7 @@ export default class Amanda extends Component {
        setTimeout(() => {
          sound.play((success) => {
            if (success) {
-             console.log('successfully finished playing');
+             console.warn('successfully finished playing');
            } else {
              console.warn('playback failed due to audio decoding errors');
            }
