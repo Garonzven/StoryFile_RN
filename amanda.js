@@ -19,6 +19,21 @@ import Button from 'apsl-react-native-button';
 import Video from 'react-native-video';
 import Sound from 'react-native-sound';
 import {AudioRecorder, AudioUtils} from 'react-native-audio';
+import RNFetchBlob from 'react-native-fetch-blob';
+import base64 from 'base-64'
+
+
+function _base64ToArrayBuffer(encoded) {
+    var binary_string =  base64.decode(encoded);
+    var len = binary_string.length;
+    var bytes = new Uint8Array( len );
+    for (var i = 0; i < len; i++)        {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes.buffer;
+}
+
+
 //import RecordingHandler from './recordingHandler';
 
 //const r = new RecordingHandler();
@@ -187,6 +202,39 @@ export default class Amanda extends Component {
    _finishRecording(didSucceed, filePath) {
      this.setState({ finished: didSucceed });
      console.warn(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath}`);
+     
+     var ws = new WebSocket('wss://storyfilestage.com:7070');
+     ws.onopen = () => {
+       // connection opened
+       console.warn('is connect')
+       RNFetchBlob.fs.readStream(filePath, 'base64')
+       .then((ifstream) => {
+          ifstream.open()
+          ifstream.onData((chunk) => {
+            ws.send(_base64ToArrayBuffer(chunk))
+          })
+       })
+     };
+
+     ws.onmessage = (e) => {
+       console.warn('response : ')
+       // a message was received
+       console.warn(e);
+     };
+
+     ws.onerror = (e) => {
+       console.warn('error')
+       // an error occurred
+       console.warn(e.message);
+     };
+
+     ws.onclose = (e) => {
+       // connection closed
+       console.warn('close')
+       console.warn(e);
+     };
+
+
    }
 
   onLoad(data) {

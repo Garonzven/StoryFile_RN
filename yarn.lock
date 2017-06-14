@@ -2952,6 +2952,10 @@ react-devtools-core@^2.0.8:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-native-audio@3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-audio/-/react-native-audio-3.2.2.tgz#0fcbda338c9cc85aabed595f9c762fa6eebbdb88"
+
 react-native-experimental-navigation@0.26.x:
   version "0.26.12"
   resolved "https://registry.yarnpkg.com/react-native-experimental-navigation/-/react-native-experimental-navigation-0.26.12.tgz#8b458757178b06908b3e8fe7042458332e8e4825"
