@@ -22,6 +22,11 @@ import {AudioRecorder, AudioUtils} from 'react-native-audio';
 import RNFetchBlob from 'react-native-fetch-blob';
 import base64 from 'base-64'
 
+import styles from '../styles/amanda'
+import amandaDefault from '../assets/Videos/amanda_bird_active_listening.mp4'
+import microphoneAsset from '../assets/Sprites/micxxhdpi.png'
+
+
 
 function _base64ToArrayBuffer(encoded) {
     var binary_string =  base64.decode(encoded);
@@ -34,10 +39,6 @@ function _base64ToArrayBuffer(encoded) {
 }
 
 
-//import RecordingHandler from './recordingHandler';
-
-//const r = new RecordingHandler();
-
 export default class Amanda extends Component {
 
   constructor(props) {
@@ -47,7 +48,6 @@ export default class Amanda extends Component {
      this.onStartShouldSetResponder = this.onStartShouldSetResponder.bind(this);
      this.onResponderRelease = this.onResponderRelease.bind(this);
   }
-
   state = {
      rate: 1,
      volume: 1,
@@ -97,8 +97,6 @@ export default class Amanda extends Component {
        this.prepareRecordingPath(this.state.audioPath);
 
        AudioRecorder.onProgress = (data) => {
-         console.log('progreso')
-         console.log(data)
          this.setState({currentTime: Math.floor(data.currentTime)});
        };
 
@@ -123,14 +121,12 @@ export default class Amanda extends Component {
 
      return PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, rationale)
        .then((result) => {
-         console.log('Permission result:', result);
          return (result === true || result === PermissionsAndroid.RESULTS.GRANTED);
        });
    }
 
    async _stop() {
      if (!this.state.recording) {
-       console.warn('Can\'t stop, not recording!');
        return;
      }
 
@@ -150,7 +146,6 @@ export default class Amanda extends Component {
 
    async _play() {
      if (this.state.recording) {
-       console.warn('no hay vida menol')
        //await this._stop();
      }
 
@@ -177,12 +172,10 @@ export default class Amanda extends Component {
 
    async _record() {
      if (this.state.recording) {
-       console.warn('Already recording!');
        return;
      }
 
      if (!this.state.hasPermission) {
-       console.warn('Can\'t record, no permission granted!');
        return;
      }
 
@@ -201,40 +194,17 @@ export default class Amanda extends Component {
 
    _finishRecording(didSucceed, filePath) {
      this.setState({ finished: didSucceed });
-     console.warn(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath}`);
-     
-     var ws = new WebSocket('wss://storyfilestage.com:7070');
-     ws.onopen = () => {
-       // connection opened
-       console.warn('is connect')
-       RNFetchBlob.fs.readStream(filePath, 'base64')
-       .then((ifstream) => {
-          ifstream.open()
-          ifstream.onData((chunk) => {
-            ws.send(_base64ToArrayBuffer(chunk))
-          })
-       })
-     };
+     /* 
 
-     ws.onmessage = (e) => {
-       console.warn('response : ')
-       // a message was received
-       console.warn(e);
-     };
-
-     ws.onerror = (e) => {
-       console.warn('error')
-       // an error occurred
-       console.warn(e.message);
-     };
-
-     ws.onclose = (e) => {
-       // connection closed
-       console.warn('close')
-       console.warn(e);
-     };
-
-
+      RNFetchBlob.fs.readStream(filePath, 'base64')
+      .then((ifstream) => {
+         ifstream.open()
+         ifstream.onData((chunk) => {
+           ws.send(_base64ToArrayBuffer(chunk))
+         })
+      })
+  
+     */
    }
 
   onLoad(data) {
@@ -290,16 +260,12 @@ export default class Amanda extends Component {
   //  r.stopRecording();
   }
 
-  //var ws;
-
-
-
 
   render() {
     var color_talk = '';
     return (
       <View style={styles.container}>
-      <Video source={require('./Videos/amanda_bird_active_listening.mp4')}
+      <Video source={amandaDefault}
       style={styles.backgroundVideo}
     rate={this.state.rate}
     volume={this.state.volume}
@@ -324,39 +290,10 @@ export default class Amanda extends Component {
               >
             <Text style={styles.talk}> {this.state.talkText}</Text>
         </View>
-        <Image source={require('./Sprites/micxxhdpi.png')} style={styles.mic}  ></Image>
+        <Image source={microphoneAsset} style={styles.mic}  ></Image>
 
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'center',
-    backgroundColor: '#2D3941'
-  },
-  mic:{
-    position: 'absolute',
-    bottom:42,
-    width:30,
-    height:30,
-    resizeMode: 'contain'
-  },
-  talk: {
-    fontSize: 20,
-    textAlign: 'center',
-    color:'#FFFFFF',
-    top:20
-  },
-  backgroundVideo: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  }
-});

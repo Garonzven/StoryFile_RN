@@ -9,18 +9,5 @@ import React, { Component } from 'react';
 import {
   AppRegistry
 } from 'react-native';
-import { Router, Scene } from 'react-native-router-flux';
-import Welcome from './welcome'
-import Amanda from './amanda'
-import Scenes from './Scenes'
-export default class StoryFile extends Component {
-  render() {
-    return (
-      <Scenes />
-    );
-  }
-}
-
-
-
-AppRegistry.registerComponent('StoryFile', () => StoryFile);
+import App from './src/router'
+AppRegistry.registerComponent('StoryFile', () => App);

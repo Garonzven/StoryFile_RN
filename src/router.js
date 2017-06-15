@@ -3,9 +3,9 @@ import {
   AppRegistry
 } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
-import Welcome from './welcome'
-import Amanda from './amanda'
-export default class Scenes extends Component {
+import Welcome from './components/welcome'
+import Amanda from './components/amanda'
+export default class App extends Component {
   render() {
     return (
       <Router>
