@@ -20,6 +20,7 @@ import Video from 'react-native-video';
 import Sound from 'react-native-sound';
 import {AudioRecorder, AudioUtils} from 'react-native-audio';
 import RNFetchBlob from 'react-native-fetch-blob';
+import ws from '../services/websocket'
 import base64 from 'base-64'
 
 import styles from '../styles/amanda'
@@ -80,15 +81,23 @@ export default class Amanda extends Component {
 
    prepareRecordingPath(audioPath){
      AudioRecorder.prepareRecordingAtPath(audioPath, {
-       SampleRate: 22050,
+       SampleRate: 16000,
        Channels: 1,
        AudioQuality: "Low",
-       AudioEncoding: "aac",
-       AudioEncodingBitRate: 32000
+       AudioEncoding: "webm",
+       AudioEncodingBitRate: 16000
      });
    }
 
    componentDidMount() {
+     this.ws = ws.connect();
+     this.ws.onopen = () => {
+      console.warn('socket is connect')
+     }
+
+     this.ws.onmessage = (data) => {
+      console.warn(data)
+     }
      this._checkPermission().then((hasPermission) => {
        this.setState({ hasPermission });
 
@@ -194,17 +203,18 @@ export default class Amanda extends Component {
 
    _finishRecording(didSucceed, filePath) {
      this.setState({ finished: didSucceed });
-     /* 
+      
 
       RNFetchBlob.fs.readStream(filePath, 'base64')
       .then((ifstream) => {
          ifstream.open()
          ifstream.onData((chunk) => {
-           ws.send(_base64ToArrayBuffer(chunk))
+           console.warn('send stream')
+           this.ws.send(_base64ToArrayBuffer(chunk))
          })
       })
   
-     */
+     
    }
 
   onLoad(data) {
