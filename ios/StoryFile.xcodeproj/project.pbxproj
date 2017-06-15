@@ -35,11 +35,10 @@
 		2DCD954D1E0B4F2C00145EB5 /* StoryFileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* StoryFileTests.m */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		5FEC7B59785F43AFAE255270 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 270A2E6195AD4C4E8CC47485 /* libRCTVideo.a */; };
-		E683599F05354ACEA5B16DE6 /* libRCTWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 387FCA4BF6F543DB9146A8E1 /* libRCTWebRTC.a */; };
-		5C81E63E050443A1ABCEEAE3 /* libRNAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D35D7BAA8B248098451C6E1 /* libRNAudio.a */; };
-		80C8EC70628B421493A4C1C7 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C69CBDD7FC400083432293 /* libRNSound.a */; };
-		7E3B4BFE74A544B49E1468E8 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA5AB78138E48E9A1A22782 /* libRNFetchBlob.a */; };
+		D28FD8CAAB6F486C82C2B967 /* libRNAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B45563326144504A13D4EA6 /* libRNAudio.a */; };
+		2CA0CFA1DFBB4FD690D66376 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A122A48672F84BAAA44E2E16 /* libRNFetchBlob.a */; };
+		6CE8762492A14F718B01135C /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A92698F5A4743A59458DB80 /* libRCTVideo.a */; };
+		F786AC6E2D114037AACC7C60 /* libRCTWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D72A6E00DE234E4893BF7402 /* libRCTWebRTC.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -259,16 +258,14 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		96247975D1354B21B8BAFE05 /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; name = "RCTVideo.xcodeproj"; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		270A2E6195AD4C4E8CC47485 /* libRCTVideo.a */ = {isa = PBXFileReference; name = "libRCTVideo.a"; path = "libRCTVideo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		25355D8FAAEA457C96F66D94 /* RCTWebRTC.xcodeproj */ = {isa = PBXFileReference; name = "RCTWebRTC.xcodeproj"; path = "../node_modules/react-native-webrtc/ios/RCTWebRTC.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		387FCA4BF6F543DB9146A8E1 /* libRCTWebRTC.a */ = {isa = PBXFileReference; name = "libRCTWebRTC.a"; path = "libRCTWebRTC.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		C1916C3FBDC747E28410CCDB /* RNAudio.xcodeproj */ = {isa = PBXFileReference; name = "RNAudio.xcodeproj"; path = "../node_modules/react-native-audio/ios/RNAudio.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		4D35D7BAA8B248098451C6E1 /* libRNAudio.a */ = {isa = PBXFileReference; name = "libRNAudio.a"; path = "libRNAudio.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		83B864DBD8454B6CB099C4FF /* RNSound.xcodeproj */ = {isa = PBXFileReference; name = "RNSound.xcodeproj"; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		A7C69CBDD7FC400083432293 /* libRNSound.a */ = {isa = PBXFileReference; name = "libRNSound.a"; path = "libRNSound.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		4543C06DEA374EA98473EA0A /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; name = "RNFetchBlob.xcodeproj"; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		1EA5AB78138E48E9A1A22782 /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		4F6FC41A1CB84F5EA2E05880 /* RNAudio.xcodeproj */ = {isa = PBXFileReference; name = "RNAudio.xcodeproj"; path = "../node_modules/react-native-audio/ios/RNAudio.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		5B45563326144504A13D4EA6 /* libRNAudio.a */ = {isa = PBXFileReference; name = "libRNAudio.a"; path = "libRNAudio.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		998C0D08610C4E2386228A39 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; name = "RNFetchBlob.xcodeproj"; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		A122A48672F84BAAA44E2E16 /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		D70CBD0C42D4414C9209ADDC /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; name = "RCTVideo.xcodeproj"; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		5A92698F5A4743A59458DB80 /* libRCTVideo.a */ = {isa = PBXFileReference; name = "libRCTVideo.a"; path = "libRCTVideo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		C3F0FF9F3FE441139664E0F8 /* RCTWebRTC.xcodeproj */ = {isa = PBXFileReference; name = "RCTWebRTC.xcodeproj"; path = "../node_modules/react-native-webrtc/ios/RCTWebRTC.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		D72A6E00DE234E4893BF7402 /* libRCTWebRTC.a */ = {isa = PBXFileReference; name = "libRCTWebRTC.a"; path = "libRCTWebRTC.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,11 +292,10 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				5FEC7B59785F43AFAE255270 /* libRCTVideo.a in Frameworks */,
-				E683599F05354ACEA5B16DE6 /* libRCTWebRTC.a in Frameworks */,
-				5C81E63E050443A1ABCEEAE3 /* libRNAudio.a in Frameworks */,
-				80C8EC70628B421493A4C1C7 /* libRNSound.a in Frameworks */,
-				7E3B4BFE74A544B49E1468E8 /* libRNFetchBlob.a in Frameworks */,
+				D28FD8CAAB6F486C82C2B967 /* libRNAudio.a in Frameworks */,
+				2CA0CFA1DFBB4FD690D66376 /* libRNFetchBlob.a in Frameworks */,
+				6CE8762492A14F718B01135C /* libRCTVideo.a in Frameworks */,
+				F786AC6E2D114037AACC7C60 /* libRCTWebRTC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,11 +462,10 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				96247975D1354B21B8BAFE05 /* RCTVideo.xcodeproj */,
-				25355D8FAAEA457C96F66D94 /* RCTWebRTC.xcodeproj */,
-				C1916C3FBDC747E28410CCDB /* RNAudio.xcodeproj */,
-				83B864DBD8454B6CB099C4FF /* RNSound.xcodeproj */,
-				4543C06DEA374EA98473EA0A /* RNFetchBlob.xcodeproj */,
+				4F6FC41A1CB84F5EA2E05880 /* RNAudio.xcodeproj */,
+				998C0D08610C4E2386228A39 /* RNFetchBlob.xcodeproj */,
+				D70CBD0C42D4414C9209ADDC /* RCTVideo.xcodeproj */,
+				C3F0FF9F3FE441139664E0F8 /* RCTWebRTC.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -998,16 +993,15 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoryFile.app/StoryFile";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-video\ios",
 					"$(SRCROOT)\..\node_modules\react-native-webrtc\ios\RCTWebRTC/**",
-					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
-					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 			};
 			name = Debug;
@@ -1028,16 +1022,15 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoryFile.app/StoryFile";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-video\ios",
 					"$(SRCROOT)\..\node_modules\react-native-webrtc\ios\RCTWebRTC/**",
-					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
-					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 			};
 			name = Release;
@@ -1059,11 +1052,12 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-video\ios",
 					"$(SRCROOT)\..\node_modules\react-native-webrtc\ios\RCTWebRTC/**",
-					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
-					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 			};
 			name = Debug;
@@ -1084,11 +1078,12 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-video\ios",
 					"$(SRCROOT)\..\node_modules\react-native-webrtc\ios\RCTWebRTC/**",
-					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
-					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 			};
 			name = Release;
@@ -1118,16 +1113,15 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-video\ios",
 					"$(SRCROOT)\..\node_modules\react-native-webrtc\ios\RCTWebRTC/**",
-					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
-					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 			};
 			name = Debug;
@@ -1157,16 +1151,15 @@
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-audio\ios",
+					"$(SRCROOT)\..\node_modules\react-native-fetch-blob\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-video\ios",
 					"$(SRCROOT)\..\node_modules\react-native-webrtc\ios\RCTWebRTC/**",
-					"$(SRCROOT)\..\node_modules\react-native-audio\ios/**",
-					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
-					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 			};
 			name = Release;
@@ -1191,8 +1184,6 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1217,8 +1208,6 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;

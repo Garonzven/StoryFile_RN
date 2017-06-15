@@ -3,11 +3,11 @@ package com.storyfile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.RNFetchBlob.RNFetchBlobPackage;
-import com.zmxv.RNSound.RNSoundPackage;
-import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.oney.WebRTCModule.WebRTCModulePackage;
 import com.brentvatne.react.ReactVideoPackage;
+import com.zmxv.RNSound.RNSoundPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -28,11 +28,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFetchBlobPackage(),
-            new RNSoundPackage(),
-            new ReactNativeAudioPackage(),
             new WebRTCModulePackage(),
-            new ReactVideoPackage()
+            new ReactVideoPackage(),
+            new RNSoundPackage(),
+            new RNFetchBlobPackage(),
+            new ReactNativeAudioPackage()
       );
     }
   };
