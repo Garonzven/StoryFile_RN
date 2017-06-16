@@ -39,6 +39,68 @@ function _base64ToArrayBuffer(encoded) {
     return bytes.buffer;
 }
 
+function placeHoldersCount (b64) {
+  var len = b64.length
+  if (len % 4 > 0) {
+    throw new Error('Invalid string. Length must be a multiple of 4')
+  }
+
+  // the number of equal signs (place holders)
+  // if there are two placeholders, than the two characters before it
+  // represent one byte
+  // if there is only one, then the three characters before it represent 2 bytes
+  // this is just a cheap hack to not do indexOf twice
+  return b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0
+}
+
+function toByteArray (b64) {
+  var i, j, l, tmp, placeHolders, arr
+  var len = b64.length
+  placeHolders = placeHoldersCount(b64)
+
+  arr = new Arr(len * 3 / 4 - placeHolders)
+
+  // if there are placeholders, only get up to the last complete 4 chars
+  l = placeHolders > 0 ? len - 4 : len
+
+  var L = 0
+
+  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
+    arr[L++] = (tmp >> 16) & 0xFF
+    arr[L++] = (tmp >> 8) & 0xFF
+    arr[L++] = tmp & 0xFF
+  }
+
+  if (placeHolders === 2) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4)
+    arr[L++] = tmp & 0xFF
+  } else if (placeHolders === 1) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2)
+    arr[L++] = (tmp >> 8) & 0xFF
+    arr[L++] = tmp & 0xFF
+  }
+
+  return arr
+}
+
+var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g
+
+function base64clean (str) {
+  // Node strips out invalid characters like \n and \t from the string, base64-js does not
+  str = stringtrim(str).replace(INVALID_BASE64_RE, '')
+  // Node converts strings with length < 2 to ''
+  if (str.length < 2) return ''
+  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
+  while (str.length % 4 !== 0) {
+    str = str + '='
+  }
+  return str
+}
+
+function base64ToBytes (str) {
+  return base64.toByteArray(base64clean(str))
+}
 
 export default class Amanda extends Component {
 
@@ -75,17 +137,17 @@ export default class Amanda extends Component {
        recording: false,
        stoppedRecording: false,
        finished: false,
-       audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
+       audioPath: AudioUtils.DocumentDirectoryPath + '/test.ogg',
        hasPermission: undefined,
    };
 
    prepareRecordingPath(audioPath){
      AudioRecorder.prepareRecordingAtPath(audioPath, {
-       SampleRate: 16000,
+       SampleRate: 22050,
        Channels: 1,
        AudioQuality: "Low",
-       AudioEncoding: "webm",
-       AudioEncodingBitRate: 16000
+       AudioEncoding: "vorbis",
+       AudioEncodingBitRate: 32000
      });
    }
 
@@ -203,7 +265,7 @@ export default class Amanda extends Component {
 
    _finishRecording(didSucceed, filePath) {
      this.setState({ finished: didSucceed });
-      
+
 
       RNFetchBlob.fs.readStream(filePath, 'base64')
       .then((ifstream) => {
@@ -212,9 +274,10 @@ export default class Amanda extends Component {
            console.warn('send stream')
            this.ws.send(_base64ToArrayBuffer(chunk))
          })
+         //this.ws.send("end");
       })
-  
-     
+
+
    }
 
   onLoad(data) {
@@ -306,4 +369,3 @@ export default class Amanda extends Component {
     );
   }
 }
-
