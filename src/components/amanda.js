@@ -75,29 +75,21 @@ export default class Amanda extends Component {
        recording: false,
        stoppedRecording: false,
        finished: false,
-       audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
+       audioPath: AudioUtils.DocumentDirectoryPath + '/test2.aac',
        hasPermission: undefined,
    };
 
    prepareRecordingPath(audioPath){
      AudioRecorder.prepareRecordingAtPath(audioPath, {
-       SampleRate: 16000,
+       SampleRate: 22050,
        Channels: 1,
-       AudioQuality: "Low",
-       AudioEncoding: "webm",
-       AudioEncodingBitRate: 16000
+       AudioQuality: "High",
+      AudioEncoding: "aac"
      });
    }
 
    componentDidMount() {
-     this.ws = ws.connect();
-     this.ws.onopen = () => {
-      console.warn('socket is connect')
-     }
-
-     this.ws.onmessage = (data) => {
-      console.warn(data)
-     }
+     
      this._checkPermission().then((hasPermission) => {
        this.setState({ hasPermission });
 
@@ -203,16 +195,44 @@ export default class Amanda extends Component {
 
    _finishRecording(didSucceed, filePath) {
      this.setState({ finished: didSucceed });
-      
 
+
+     this.ws = ws.connect();
+     this.ws.onopen = () => {
+      console.warn('socket is connect')
       RNFetchBlob.fs.readStream(filePath, 'base64')
       .then((ifstream) => {
          ifstream.open()
          ifstream.onData((chunk) => {
-           console.warn('send stream')
-           this.ws.send(_base64ToArrayBuffer(chunk))
+           this.ws.send(chunk)
+         })
+         ifstream.onEnd(() => {
+          this.ws.send('finish')
+         // this.ws.close()
          })
       })
+     }
+
+     this.ws.onmessage = (data) => {
+      const message = JSON.parse(data.data)
+      console.log('message parse')
+      console.log(message)
+      if (message.hasOwnProperty('status')) {
+        this.ws.close()
+        if (message.status) {
+          const watsonText = message.server_watson[message.server_watson.length - 1]
+                            .alternatives[0]
+          alert(`
+              watson: ${watsonText.transcript}
+              video story file: ${message.server_storyfile.video_url}
+            `)
+        } else {
+          alert('no puedo detectar nada :(')
+        }
+      }
+     }
+      
+
   
      
    }
