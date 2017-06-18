@@ -1,6 +1,6 @@
-import { baseUrl } from './baseUrl'
+import { baseUrl } from './config'
 export default {
   connect () {
-    return new WebSocket('ws://10.0.3.2:8080/');
+    return new WebSocket(`ws://${baseUrl}:3000/`);
   }
 }
