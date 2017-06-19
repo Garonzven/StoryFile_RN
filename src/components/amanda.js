@@ -22,6 +22,7 @@ import {AudioRecorder, AudioUtils} from 'react-native-audio';
 import RNFetchBlob from 'react-native-fetch-blob';
 import ws from '../services/websocket'
 import base64 from 'base-64'
+import FadeInView from 'fadeInView';
 
 import styles from '../styles/amanda'
 import amandaDefault from '../assets/Videos/amanda_bird_active_listening.mp4'
@@ -138,7 +139,6 @@ export default class Amanda extends Component {
          bottom:40,
          position:'absolute'
        },
-       currentTime: 0.0,
        recording: false,
        stoppedRecording: false,
        finished: false,
@@ -288,6 +288,7 @@ export default class Amanda extends Component {
   onLoad(data) {
     //  this.setState({duration: data.duration});
     console.warn("video loaded");
+    FadeInView.fadeIn();
     this.setState({
     //  style_vid1: styles.hidden,
       style_vid2: styles.backgroundVideo
@@ -361,17 +362,18 @@ export default class Amanda extends Component {
     var color_talk = '';
     return (
       <View style={styles.container}>
-            <Image source={logoAsset} style={styles.logo} ></Image>
-      <Video source={amandaDefault}
-
-        style={this.state.style_vid1}
-        rate={this.state.rate}
-        volume={this.state.volume}
-        muted={this.state.muted}
-        resizeMode={this.state.resizeMode}
-        playInBackground={true}
-        repeat={true}
-      />
+        <Image source={logoAsset} style={styles.logo} ></Image>
+        <FadeInView fadeIn={true}>
+          <Video source={amandaDefault}
+          style={this.state.style_vid1}
+          rate={this.state.rate}
+          volume={this.state.volume}
+          muted={this.state.muted}
+          resizeMode={this.state.resizeMode}
+          playInBackground={true}
+          repeat={true}
+          />
+        </FadeInView>
       <Video
         source={this.state.video}
         style={this.state.style_vid2}
