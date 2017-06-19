@@ -26,6 +26,7 @@ import base64 from 'base-64'
 import styles from '../styles/amanda'
 import amandaDefault from '../assets/Videos/amanda_bird_active_listening.mp4'
 import microphoneAsset from '../assets/Sprites/micxxhdpi.png'
+import logoAsset from '../assets/Sprites/Asset 3hdpi.png';
 
 
 
@@ -288,7 +289,7 @@ export default class Amanda extends Component {
     //  this.setState({duration: data.duration});
     console.warn("video loaded");
     this.setState({
-      style_vid1: styles.hidden,
+    //  style_vid1: styles.hidden,
       style_vid2: styles.backgroundVideo
     //  video:{uri: message.server_storyfile.video_url}
     })
@@ -298,8 +299,8 @@ export default class Amanda extends Component {
      console.warn("video ended");
      this.setState({
        style_vid2: styles.hidden,
-       style_vid1: styles.backgroundVideo
-     //  video:{uri: message.server_storyfile.video_url}
+    //   style_vid1: styles.backgroundVideo
+       video:null
      })
    }
 
@@ -360,9 +361,7 @@ export default class Amanda extends Component {
     var color_talk = '';
     return (
       <View style={styles.container}>
-      <View style={styles.watson}>
-        <Text> Watson: <Text> {this.state.watson} </Text>  </Text>
-      </View>
+            <Image source={logoAsset} style={styles.logo} ></Image>
       <Video source={amandaDefault}
 
         style={this.state.style_vid1}
@@ -370,7 +369,6 @@ export default class Amanda extends Component {
         volume={this.state.volume}
         muted={this.state.muted}
         resizeMode={this.state.resizeMode}
-      //  onProgress={this.onProgress}
         playInBackground={true}
         repeat={true}
       />
@@ -385,14 +383,15 @@ export default class Amanda extends Component {
         repeat={false}
         onLoad={this.onLoad}
         onEnd={this.onEnd}
-        onBuffer={this.onBuffer}
       />
 
-        <View style={this.state.circle} />
+        <View style={this.state.circle}
+              onStartShouldSetResponder={this.onStartShouldSetResponder}
+              onResponderRelease={this.onResponderRelease}
+        />
 
         <View style={this.state.square}
               accessible={true}
-              onAccessibilityTap={() => {console.warn("tap");}}
               onStartShouldSetResponder={this.onStartShouldSetResponder}
               onResponderRelease={this.onResponderRelease}
               >

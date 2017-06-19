@@ -26,6 +26,19 @@ export default StyleSheet.create({
     height:30,
     resizeMode: 'contain'
   },
+  logo:{
+    position: 'absolute',
+    zIndex: 1000,
+    top:15,
+    right:10,
+    display: 'flex',
+    alignContent: 'flex-end',
+    resizeMode: 'contain',
+    opacity: 0.4,
+    width:60,
+    height:35
+
+  },
   talk: {
     fontSize: 20,
     textAlign: 'center',
@@ -38,10 +51,14 @@ export default StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+    opacity:1
   },
   hidden:{
-    //display: 'none',
-    width:0,
-    height:0
+    opacity:0,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
   }
 });
