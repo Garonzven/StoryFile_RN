@@ -124,7 +124,7 @@ export default class Amanda extends Component {
      resizeMode: 'cover',
      duration: 0.0,
      currentTime: 0.0,
-     fadeIn:false,
+     targetOpacity:-1,
      talkText:'HOLD TO TALK',
      square:{
        width: '100%',
@@ -294,7 +294,7 @@ export default class Amanda extends Component {
     //  style_vid1: styles.hidden,
 
       style_vid2: styles.backgroundVideo,
-      fadeIn: true,
+      targetOpacity: 1,
     //  video:{uri: message.server_storyfile.video_url}
     })
    }
@@ -302,8 +302,8 @@ export default class Amanda extends Component {
    onEnd(){
      console.warn("video ended");
      this.setState({
-       style_vid2: styles.hidden,
-    //   style_vid1: styles.backgroundVideo
+    //   style_vid2: styles.hidden,
+      targetOpacity: 0,
        video:null
      })
    }
@@ -376,7 +376,7 @@ export default class Amanda extends Component {
           repeat={true}
           />
 
-          <FadeInView fadeIn={this.state.fadeIn}>
+          <FadeInView targetOpacity={this.state.targetOpacity}>
           <Video
             source={this.state.video}
             style={this.state.style_vid1,this.state.style_vid2}

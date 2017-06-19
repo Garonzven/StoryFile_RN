@@ -4,24 +4,31 @@ import { Animated, Text, View } from 'react-native';
 export default class fadeInView extends React.Component {
     state = {
         fadeAnim: new Animated.Value(0), // Initial value for opacity: 0
-        duration: 2500
+        duration: 2500,
+        targetOpacity:-1
     }
 
-    fadeIn() {
+    fade() {
         console.warn('fade in');
         Animated.timing( // Animate over time
             this.state.fadeAnim, // The animated value to drive
             {
-                toValue: 1, // Animate to opacity: 1 (opaque)
+                toValue: this.state.targetOpacity, // Animate to opacity: 1 (opaque)
                 duration: this.state.duration, // Make it take a while
             }
-        ).start(); // Starts the animation
+        ).start( () => this.onFaded() ); // Starts the animation
+
+    }
+
+    onFaded(){
+      this.state.targetOpacity = -1; //reset
     }
 
     render() {
         let { fadeAnim } = this.state;
-        if (this.props.fadeIn) {
-            this.fadeIn()
+        if (this.props.targetOpacity != this.state.targetOpacity) {
+            this.state.targetOpacity = this.props.targetOpacity;
+            this.fade()
         }
 
         return (
@@ -37,7 +44,7 @@ export default class fadeInView extends React.Component {
                     right: 0,
                 }
             } >
-        
+
             { this.props.children }
             </Animated.View>
         );
