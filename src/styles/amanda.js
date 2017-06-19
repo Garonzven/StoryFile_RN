@@ -8,6 +8,17 @@ export default StyleSheet.create({
     justifyContent:'center',
     backgroundColor: '#2D3941'
   },
+  watson: {
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    top: 0,
+    width: '100%',
+    padding: 20,
+    position: 'absolute',
+    zIndex: 1000,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   mic:{
     position: 'absolute',
     bottom:42,
@@ -27,5 +38,10 @@ export default StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+  },
+  hidden:{
+    //display: 'none',
+    width:0,
+    height:0
   }
 });

@@ -110,11 +110,15 @@ export default class Amanda extends Component {
      this.onProgress = this.onProgress.bind(this);
      this.onStartShouldSetResponder = this.onStartShouldSetResponder.bind(this);
      this.onResponderRelease = this.onResponderRelease.bind(this);
+     this.onEnd = this.onEnd.bind(this);
+     this.onBuffer = this.onBuffer.bind(this);
   }
   state = {
      rate: 1,
      volume: 1,
-     muted: true,
+     video: null,
+     watson: 'nothing',
+     muted: false,
      resizeMode: 'cover',
      duration: 0.0,
      currentTime: 0.0,
@@ -137,29 +141,23 @@ export default class Amanda extends Component {
        recording: false,
        stoppedRecording: false,
        finished: false,
-       audioPath: AudioUtils.DocumentDirectoryPath + '/test.ogg',
+       audioPath: AudioUtils.DocumentDirectoryPath + '/test2.aac',
        hasPermission: undefined,
+       style_vid1:styles.backgroundVideo,
+       style_vid2:styles.hidden
    };
 
    prepareRecordingPath(audioPath){
      AudioRecorder.prepareRecordingAtPath(audioPath, {
        SampleRate: 22050,
        Channels: 1,
-       AudioQuality: "Low",
-       AudioEncoding: "vorbis",
-       AudioEncodingBitRate: 32000
+       AudioQuality: "High",
+      AudioEncoding: "aac"
      });
    }
 
    componentDidMount() {
-     this.ws = ws.connect();
-     this.ws.onopen = () => {
-      console.warn('socket is connect')
-     }
 
-     this.ws.onmessage = (data) => {
-      console.warn(data)
-     }
      this._checkPermission().then((hasPermission) => {
        this.setState({ hasPermission });
 
@@ -215,31 +213,6 @@ export default class Amanda extends Component {
      }
    }
 
-   async _play() {
-     if (this.state.recording) {
-       //await this._stop();
-     }
-
-     // These timeouts are a hacky workaround for some issues with react-native-sound.
-     // See https://github.com/zmxv/react-native-sound/issues/89.
-     setTimeout(() => {
-       var sound = new Sound(this.state.audioPath, '', (error) => {
-         if (error) {
-           console.warn('failed to load the sound', error);
-         }
-       });
-
-       setTimeout(() => {
-         sound.play((success) => {
-           if (success) {
-             console.warn('successfully finished playing');
-           } else {
-             console.warn('playback failed due to audio decoding errors');
-           }
-         });
-       }, 100);
-     }, 100);
-   }
 
    async _record() {
      if (this.state.recording) {
@@ -267,25 +240,75 @@ export default class Amanda extends Component {
      this.setState({ finished: didSucceed });
 
 
+     this.ws = ws.connect();
+     this.ws.onopen = () => {
+      console.warn('socket is connect')
+      this.setState({watson: 'loading...'})
       RNFetchBlob.fs.readStream(filePath, 'base64')
       .then((ifstream) => {
          ifstream.open()
          ifstream.onData((chunk) => {
-           console.warn('send stream')
-           this.ws.send(_base64ToArrayBuffer(chunk))
+           this.ws.send(chunk)
+         })
+         ifstream.onEnd(() => {
+          this.ws.send('finish')
+         // this.ws.close()
          })
          //this.ws.send("end");
       })
+     }
 
+     this.ws.onmessage = (data) => {
 
+      const message = JSON.parse(data.data)
+      console.log('message parse')
+      console.log(message)
+      if (message.hasOwnProperty('status')) {
+        this.ws.close()
+        if (message.status) {
+          const watsonText = message.server_watson[message.server_watson.length - 1]
+                            .alternatives[0]
+          this.setState({
+            watson: watsonText.transcript,
+            video:{uri: message.server_storyfile.video_url}
+          })
+          alert(`
+              watson: ${watsonText.transcript}
+              video story file: ${message.server_storyfile.video_url}
+            `)
+        } else {
+          alert('no puedo detectar nada :(')
+          this.setState({watson: 'nothing'})
+        }
+      }
+     }
    }
 
   onLoad(data) {
-      this.setState({duration: data.duration});
+    //  this.setState({duration: data.duration});
+    console.warn("video loaded");
+    this.setState({
+      style_vid1: styles.hidden,
+      style_vid2: styles.backgroundVideo
+    //  video:{uri: message.server_storyfile.video_url}
+    })
+   }
+
+   onEnd(){
+     console.warn("video ended");
+     this.setState({
+       style_vid2: styles.hidden,
+       style_vid1: styles.backgroundVideo
+     //  video:{uri: message.server_storyfile.video_url}
+     })
    }
 
   onProgress(data) {
       this.setState({currentTime: data.currentTime});
+  }
+
+  onBuffer(){
+    console.warn("buffering..");
   }
 
   //On Press
@@ -329,7 +352,6 @@ export default class Amanda extends Component {
       },
     talkText:'HOLD TO TALK'})
     this._stop();
-    this._play();
   //  r.stopRecording();
   }
 
@@ -338,17 +360,32 @@ export default class Amanda extends Component {
     var color_talk = '';
     return (
       <View style={styles.container}>
+      <View style={styles.watson}>
+        <Text> Watson: <Text> {this.state.watson} </Text>  </Text>
+      </View>
       <Video source={amandaDefault}
-      style={styles.backgroundVideo}
-    rate={this.state.rate}
-    volume={this.state.volume}
-    muted={this.state.muted}
-    resizeMode={this.state.resizeMode}
-    onLoadStart={() => {console.warn("loading started");}}
-    onLoad={() => {console.warn("loading done");}}
-    onProgress={this.onProgress}
-    playInBackground={true}
-    repeat={true}
+
+        style={this.state.style_vid1}
+        rate={this.state.rate}
+        volume={this.state.volume}
+        muted={this.state.muted}
+        resizeMode={this.state.resizeMode}
+      //  onProgress={this.onProgress}
+        playInBackground={true}
+        repeat={true}
+      />
+      <Video
+        source={this.state.video}
+        style={this.state.style_vid2}
+        rate={this.state.rate}
+        volume={this.state.volume}
+        muted={this.state.muted}
+        resizeMode={this.state.resizeMode}
+        playInBackground={false}
+        repeat={false}
+        onLoad={this.onLoad}
+        onEnd={this.onEnd}
+        onBuffer={this.onBuffer}
       />
 
         <View style={this.state.circle} />
@@ -357,9 +394,7 @@ export default class Amanda extends Component {
               accessible={true}
               onAccessibilityTap={() => {console.warn("tap");}}
               onStartShouldSetResponder={this.onStartShouldSetResponder}
-              onMoveShouldSetResponder={() => {console.warn("move should set responder");}}
               onResponderRelease={this.onResponderRelease}
-              onMagicTap={() => {console.warn("MagicTap");}}
               >
             <Text style={styles.talk}> {this.state.talkText}</Text>
         </View>
