@@ -8,16 +8,13 @@
   },
   "dependencies": {
     "apsl-react-native-button": "3.0.2",
-    "base-64": "^0.1.0",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.2",
     "react-native-audio": "3.2.2",
-    "react-native-engine.io-client": "^1.6.12",
     "react-native-fetch-blob": "^0.10.5",
     "react-native-router-flux": "3.38.0",
     "react-native-sound": "^0.8.3",
-    "react-native-video": "git+https://github.com/react-native-community/react-native-video.git",
-    "react-native-webrtc": "^1.57.1"
+    "react-native-video": "1.0.0"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
