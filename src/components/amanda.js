@@ -22,7 +22,7 @@ import {AudioRecorder, AudioUtils} from 'react-native-audio';
 import RNFetchBlob from 'react-native-fetch-blob';
 import ws from '../services/websocket'
 import base64 from 'base-64'
-import FadeInView from 'fadeInView';
+import FadeInView from './fadeInView';
 
 import styles from '../styles/amanda'
 import amandaDefault from '../assets/Videos/amanda_bird_active_listening.mp4'
@@ -113,7 +113,7 @@ export default class Amanda extends Component {
      this.onStartShouldSetResponder = this.onStartShouldSetResponder.bind(this);
      this.onResponderRelease = this.onResponderRelease.bind(this);
      this.onEnd = this.onEnd.bind(this);
-     this.onBuffer = this.onBuffer.bind(this);
+
   }
   state = {
      rate: 1,
@@ -124,6 +124,7 @@ export default class Amanda extends Component {
      resizeMode: 'cover',
      duration: 0.0,
      currentTime: 0.0,
+     fadeIn:false,
      talkText:'HOLD TO TALK',
      square:{
        width: '100%',
@@ -288,10 +289,12 @@ export default class Amanda extends Component {
   onLoad(data) {
     //  this.setState({duration: data.duration});
     console.warn("video loaded");
-    FadeInView.fadeIn();
+
     this.setState({
     //  style_vid1: styles.hidden,
-      style_vid2: styles.backgroundVideo
+
+      style_vid2: styles.backgroundVideo,
+      fadeIn: true,
     //  video:{uri: message.server_storyfile.video_url}
     })
    }
@@ -306,12 +309,10 @@ export default class Amanda extends Component {
    }
 
   onProgress(data) {
-      this.setState({currentTime: data.currentTime});
+    //  this.setState({currentTime: data.currentTime});
   }
 
-  onBuffer(){
-    console.warn("buffering..");
-  }
+
 
   //On Press
   onStartShouldSetResponder(){
@@ -363,7 +364,8 @@ export default class Amanda extends Component {
     return (
       <View style={styles.container}>
         <Image source={logoAsset} style={styles.logo} ></Image>
-        <FadeInView fadeIn={true}>
+
+
           <Video source={amandaDefault}
           style={this.state.style_vid1}
           rate={this.state.rate}
@@ -373,19 +375,22 @@ export default class Amanda extends Component {
           playInBackground={true}
           repeat={true}
           />
+
+          <FadeInView fadeIn={this.state.fadeIn}>
+          <Video
+            source={this.state.video}
+            style={this.state.style_vid1,this.state.style_vid2}
+            rate={this.state.rate}
+            volume={this.state.volume}
+            muted={this.state.muted}
+            resizeMode={this.state.resizeMode}
+            playInBackground={false}
+            repeat={false}
+            onLoad={this.onLoad}
+            onEnd={this.onEnd}
+          />
         </FadeInView>
-      <Video
-        source={this.state.video}
-        style={this.state.style_vid2}
-        rate={this.state.rate}
-        volume={this.state.volume}
-        muted={this.state.muted}
-        resizeMode={this.state.resizeMode}
-        playInBackground={false}
-        repeat={false}
-        onLoad={this.onLoad}
-        onEnd={this.onEnd}
-      />
+
 
         <View style={this.state.circle}
               onStartShouldSetResponder={this.onStartShouldSetResponder}
