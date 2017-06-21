@@ -9,7 +9,10 @@ export default class fadeInView extends React.Component {
     }
 
     fade() {
-        console.warn('fade in');
+       if( this.state.targetOpacity == 1)
+          console.warn('fade in');
+       if(this.state.targetOpacity == 0)
+          console.console.warn('fade out');
         Animated.timing( // Animate over time
             this.state.fadeAnim, // The animated value to drive
             {

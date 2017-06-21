@@ -1576,11 +1576,7 @@ dom-walk@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
 
-domelementtype@1:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.3.0.tgz#b17aed82e8ab59e52dd9c19b1756e0fc187204c2"
-
-domelementtype@~1.1.1:
+domelementtype@1, domelementtype@~1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.1.3.tgz#bd28773e2642881aec51544924299c5cd822185b"
 
@@ -3944,14 +3940,14 @@ react-native-tabs@^1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/react-native-tabs/-/react-native-tabs-1.0.9.tgz#75d3c35e8b5b6970869eab282372cb32e2a782cd"
 
-"react-native-video@https://github.com/react-native-community/react-native-video":
+"react-native-video@git+https://github.com/react-native-community/react-native-video.git":
   version "1.1.0"
-  resolved "https://github.com/react-native-community/react-native-video#7f2cd8751a1a7e5b4cf3b6b50916156bee7c63b0"
+  resolved "git+https://github.com/react-native-community/react-native-video.git#7f2cd8751a1a7e5b4cf3b6b50916156bee7c63b0"
   dependencies:
     keymirror "0.1.1"
     react-native-windows "0.41.0-rc.0"
 
-react-native-webrtc@^1.57.1:
+react-native-webrtc@1.57.1:
   version "1.57.1"
   resolved "https://registry.yarnpkg.com/react-native-webrtc/-/react-native-webrtc-1.57.1.tgz#3bf73fbcb716d5f259a7b06ea557a9122323cf1d"
   dependencies:

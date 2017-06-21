@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.brentvatne.react.ReactVideoPackage;
-import com.oney.WebRTCModule.WebRTCModulePackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnim.rn.audio.ReactNativeAudioPackage;
@@ -29,7 +28,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new ReactVideoPackage(),
-            new WebRTCModulePackage(),
             new RNSoundPackage(),
             new RNFetchBlobPackage(),
             new ReactNativeAudioPackage()

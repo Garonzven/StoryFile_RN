@@ -57,5 +57,18 @@ export default StyleSheet.create({
     opacity:0,
 
   },
-
+  mic_blocked:{
+    position: 'absolute',
+    bottom:42,
+    width:30,
+    height:30,
+    resizeMode: 'contain',
+    opacity:0.5
+  },txt_blocked: {
+      fontSize: 20,
+      textAlign: 'center',
+      color:'#FFFFFF',
+      top:20,
+      opacity:0.5
+    }
 });
