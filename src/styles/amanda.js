@@ -31,7 +31,16 @@ export default StyleSheet.create({
     bottom: 40,
     width: 40,
     height: 40,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    opacity:1
+  },
+  loadingHidden:{
+    position: 'absolute',
+    bottom: 40,
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+    opacity:0
   },
   logo:{
     position: 'absolute',

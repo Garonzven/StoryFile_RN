@@ -39,7 +39,6 @@ export default class Amanda extends Component {
   constructor(props) {
      super(props);
      this.onLoad = this.onLoad.bind(this);
-     this.onProgress = this.onProgress.bind(this);
      this.onStartShouldSetResponder = this.onStartShouldSetResponder.bind(this);
      this.onResponderRelease = this.onResponderRelease.bind(this);
      this.onEnd = this.onEnd.bind(this);
@@ -80,7 +79,10 @@ export default class Amanda extends Component {
        hasPermission: undefined,
        style_vid1:styles.backgroundVideo,
        style_vid2:styles.hidden,
-       isConnected:null
+       isConnected:null,
+       loading:styles.loadingHidden,
+       playing:false
+
    };
 
    prepareRecordingPath(audioPath){
@@ -294,9 +296,10 @@ export default class Amanda extends Component {
 
     this.setState({
     //  style_vid1: styles.hidden,
-
+      playing:true,
       style_vid2: styles.backgroundVideo,
       targetOpacity: 1,
+      loading:styles.loadingHidden
     //  video:{uri: message.server_storyfile.video_url}
     })
    }
@@ -304,15 +307,13 @@ export default class Amanda extends Component {
    onEnd(){
      console.warn("video ended");
      this.setState({
-    //   style_vid2: styles.hidden,
+     playing:false,
       targetOpacity: 0,
        video:null
      })
    }
 
-  onProgress(data) {
-    //  this.setState({currentTime: data.currentTime});
-  }
+
 
 
 
@@ -330,6 +331,10 @@ export default class Amanda extends Component {
           { cancelable: false }
         );
     }else{
+      if(this.state.playing)
+      {
+          this.onEnd();
+      }
       this.setState({square:{
         width: '100%',
         height: 60,
@@ -344,7 +349,9 @@ export default class Amanda extends Component {
           bottom:40,
           position:'absolute'
         },
-      talkText:'RELEASE TO LISTEN'})
+      talkText:'RELEASE TO LISTEN',
+      loading:styles.loadingHidden
+      })
     //  r.record();
       this._record();
     }
@@ -365,7 +372,10 @@ export default class Amanda extends Component {
           { cancelable: false }
         );
     }else{
-      this.setState({square:{
+
+      this.setState({
+        loading:styles.loading,
+        square:{
         width: '100%',
         height: 60,
         backgroundColor: '#2AB999',
@@ -434,7 +444,7 @@ export default class Amanda extends Component {
             <Text style={this.state.txt_style}> {this.state.talkText}</Text>
         </View>
         <Image source={microphoneAsset} style={this.state.mic_style}  />
-        <RotatingImage source={loadingImg} lapDuration={ 2000 } style={styles.loading} />
+        <RotatingImage source={loadingImg} lapDuration={ 2000 } style={this.state.loading} />
 
       </View>
     );

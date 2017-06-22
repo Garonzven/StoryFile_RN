@@ -41,7 +41,7 @@ export default class FadeInView extends React.Component {
             <Animated.View // Special animatable View
             style = {
                 [
-                    opacity: fadeAnim, // Bind opacity to animated value
+                    {opacity: fadeAnim}, // Bind opacity to animated value
                     this.props.style
                 ]
             } >
