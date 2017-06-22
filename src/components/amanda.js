@@ -28,7 +28,9 @@ import FadeInView from './fadeInView';
 import styles from '../styles/amanda'
 import amandaDefault from '../assets/Videos/amanda_bird_active_listening.mp4'
 import microphoneAsset from '../assets/Sprites/micxxhdpi.png'
+import loadingImg from '../assets/Sprites/loading_inside.png'
 import logoAsset from '../assets/Sprites/Asset 3hdpi.png';
+import RotatingImage from './rotatingImage';
 
 
 
@@ -402,7 +404,7 @@ export default class Amanda extends Component {
           repeat={true}
           />
 
-          <FadeInView targetOpacity={this.state.targetOpacity}>
+          <FadeInView targetOpacity={this.state.targetOpacity} style={this.state.style_vid1}>
           <Video
             source={this.state.video}
             style={this.state.style_vid1,this.state.style_vid2}
@@ -431,7 +433,8 @@ export default class Amanda extends Component {
               >
             <Text style={this.state.txt_style}> {this.state.talkText}</Text>
         </View>
-        <Image source={microphoneAsset} style={this.state.mic_style}  ></Image>
+        <Image source={microphoneAsset} style={this.state.mic_style}  />
+        <RotatingImage source={loadingImg} lapDuration={ 2000 } style={styles.loading} />
 
       </View>
     );

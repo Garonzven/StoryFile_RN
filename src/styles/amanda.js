@@ -21,9 +21,16 @@ export default StyleSheet.create({
   },
   mic:{
     position: 'absolute',
-    bottom:42,
+    bottom:44,
     width:30,
     height:30,
+    resizeMode: 'contain'
+  },
+  loading:{
+    position: 'absolute',
+    bottom: 40,
+    width: 40,
+    height: 40,
     resizeMode: 'contain'
   },
   logo:{
