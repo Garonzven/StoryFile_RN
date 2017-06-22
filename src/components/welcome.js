@@ -14,14 +14,17 @@ import {
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import { Actions } from 'react-native-router-flux';
-import LogoAsset from '../assets/Sprites/Asset 2mdpi.png'
-import styles from '../styles/welcome.js'
+import LogoAsset from '../assets/Sprites/Asset 2mdpi.png';
+import styles from '../styles/welcome.js';
+import AnimatedRotationView from './animatedRotationView';
 export default class Welcome extends Component {
 
   render() {
     return (
       <View style={styles.container}>
-        <Image source={LogoAsset} style={styles.logo}  ></Image>
+        <AnimatedRotationView>
+          <Image source={LogoAsset} style={styles.logo}  />
+        </AnimatedRotationView>
         <Text style={styles.welcome}>  Welcome!</Text>
         <Button style={styles.welcomeButton} textStyle={styles.welcomeText}
             onPress={() => {  Actions.amanda();}}>GET STARTED
