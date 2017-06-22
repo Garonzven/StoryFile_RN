@@ -30,7 +30,7 @@ import amandaDefault from '../assets/Videos/amanda_bird_active_listening.mp4'
 import microphoneAsset from '../assets/Sprites/micxxhdpi.png'
 import loadingImg from '../assets/Sprites/loading_inside.png'
 import logoAsset from '../assets/Sprites/Asset 3hdpi.png';
-import RotatingImage from './rotatingImage';
+import RotatingComponent from './rotatingComponent';
 
 
 
@@ -434,7 +434,13 @@ export default class Amanda extends Component {
             <Text style={this.state.txt_style}> {this.state.talkText}</Text>
         </View>
         <Image source={microphoneAsset} style={this.state.mic_style}  />
-        <RotatingImage source={loadingImg} lapDuration={ 2000 } style={styles.loading} />
+        <RotatingComponent 
+          isImage={true} 
+          source={loadingImg} 
+          lapDuration={ 2000 } 
+          style={styles.loading} 
+          counterClockwise={true} 
+        />
 
       </View>
     );

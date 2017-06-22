@@ -1,15 +1,11 @@
 import React from 'react';
-import { Animated, Easing, View } from 'react-native';
+import { Animated, Easing } from 'react-native';
 
 let spin;
 
-export default class RotatingView extends React.Component {
+export default class RotatingComponent extends React.Component {
     constructor( props ){
         super(props);
-        spin = this.state.spinValue.interpolate({
-                inputRange: [0, 1],
-                outputRange: ['0deg', '360deg']
-            });
     }
     state = {
         spinValue: new Animated.Value(0), // Initial value: 0
@@ -21,13 +17,25 @@ export default class RotatingView extends React.Component {
     }
 
     spin() {
-       if( this.state.counterClockwise) console.warn('spin counter-clockwise');
-       else console.warn('spin clockwise');
+        if( this.state.counterClockwise ){
+            console.warn('spin counter-clockwise');
+            spin = this.state.spinValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: ['0deg', '-360deg']
+            });
+        }
+        else {
+            console.warn('spin clockwise');
+            spin = this.state.spinValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: ['0deg', '360deg']
+            });
+        }
         Animated.loop(
             Animated.timing( // Animate over time
                 this.state.spinValue, // The animated value to drive
                 {
-                    toValue: 1, //this.state.counterClockwise ? 1 : 0, // Animate
+                    toValue: 1, // Animate
                     duration: this.state.lapDuration, // Make it take a while
                     easing: this.state.easing
                 }
@@ -44,6 +52,31 @@ export default class RotatingView extends React.Component {
             this.spin();
         }
 
+        if( this.props.isImage ){
+            return this.animatedImage();
+        }
+        else return this.animatedView();
+    }
+
+
+    // RETURNS -----------------------------------------------------------------
+
+    animatedImage () {
+         return (
+            <Animated.Image // Special animatable View
+            style = {
+                [
+                    {transform: [{rotate: spin}]},
+                    this.props.style
+                ]
+            }
+            source = {this.props.source} >
+
+            { this.props.children }
+            </Animated.Image>
+        );
+    }
+    animatedView(){
         return (
             <Animated.View // Special animatable View
             style = {
@@ -57,4 +90,4 @@ export default class RotatingView extends React.Component {
             </Animated.View>
         );
     }
-}
+} 
