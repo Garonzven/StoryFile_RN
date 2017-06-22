@@ -7,7 +7,7 @@ export default class AnimatedRotationView extends React.Component {
     state = {
         spinValue: new Animated.Value(0), // Initial value: 0
         clockwise: true,
-        lapDuration: 3000,
+        lapDuration: 2000,
         easing: Easing.linear,
         isSpinning: false,
         loop: true
@@ -24,7 +24,8 @@ export default class AnimatedRotationView extends React.Component {
             this.state.spinValue, // The animated value to drive
             {
                 toValue: 1, //this.state.clockwise ? 1 : 0, // Animate
-                lapDuration: this.state.lapDuration, // Make it take a while
+                duration: this.state.lapDuration, // Make it take a while
+                easing: this.state.easing
             }
         ).start( () => this.onSpinned() ); // Starts the animation
         this.state.isSpinning = true;
@@ -33,33 +34,18 @@ export default class AnimatedRotationView extends React.Component {
     onSpinned(){
       this.state.isSpinning = false; //reset
       if( this.state.loop ){
-          //this.state.spinValue = new Animated.Value(0);
+          this.state.spinValue.setValue( 0 );
           this.spin();
       }
     }
 
     render() {
         let { spinAnim } = this.state;
-        /*if (this.props.clockwise != this.state.clockwise && !this.state.isSpinning) {
+        if (this.props.clockwise != this.state.clockwise && !this.state.isSpinning) {
             this.state.clockwise = this.props.clockwise;
-            //this.state.lapDuration = this.props.lapDuration;
+            this.state.lapDuration = this.props.lapDuration;
             this.spin();
-        }*/
-        this.spin();
-
-        // Second interpolate beginning and end values (in this case 0 and 1)
-        /*if( true ){
-            spin = this.state.spinValue.interpolate({
-                inputRange: [0, 1],
-                outputRange: ['0deg', '360deg']
-            });
-        }*/
-        /*else{
-            spin = this.state.spinValue.interpolate({
-                inputRange: [0, 1],
-                outputRange: ['360deg', '0deg']
-            });
-        }*/
+        }
 
         return (
             <Animated.View // Special animatable View

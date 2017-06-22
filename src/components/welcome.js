@@ -22,7 +22,7 @@ export default class Welcome extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <AnimatedRotationView>
+        <AnimatedRotationView lapDuration={ 2000 } >
           <Image source={LogoAsset} style={styles.logo}  />
         </AnimatedRotationView>
         <Text style={styles.welcome}>  Welcome!</Text>
